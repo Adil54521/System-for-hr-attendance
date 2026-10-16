@@ -1,0 +1,823 @@
+2025-08-04 16:06:33,413 - INFO - Redis доступен из бота
+2025-08-04 16:06:33,413 - INFO - \u2705 Redis доступен из бота
+2025-08-04 16:06:33,788 - INFO - \U0001f680 Бот запущен и ожидает сообщения...
+2025-08-04 16:06:33,788 - INFO - Start polling
+2025-08-04 16:06:34,054 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:06:45,990 - INFO - Получен qr_id: e7fcb2fb
+2025-08-04 16:06:45,990 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754305600}
+2025-08-04 16:06:46,287 - INFO - Update id=322627528 is handled. Duration 312 ms by bot id=8090692411
+2025-08-04 16:06:47,865 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 16:06:49,053 - INFO - Update id=322627529 is handled. Duration 1186 ms by bot id=8090692411
+2025-08-04 16:09:28,799 - INFO - Polling stopped
+2025-08-04 16:09:28,799 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 16:09:28,799 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 16:09:29,065 - INFO - \u274e Сессия бота закрыта
+2025-08-04 16:09:29,065 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:09:29,065 - WARNING - \U0001f6d1 Бот остановлен вручную (KeyboardInterrupt)
+2025-08-04 16:09:37,346 - INFO - Redis доступен из бота
+2025-08-04 16:09:37,361 - INFO - \u2705 Redis доступен из бота
+2025-08-04 16:09:37,721 - INFO - \U0001f680 Бот запущен и ожидает сообщения...
+2025-08-04 16:09:37,721 - INFO - Start polling
+2025-08-04 16:09:38,064 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:09:48,500 - INFO - Получен qr_id: 5b1dc3ac
+2025-08-04 16:09:48,500 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754305782}
+2025-08-04 16:09:49,188 - INFO - Update id=322627530 is handled. Duration 702 ms by bot id=8090692411
+2025-08-04 16:09:50,469 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 16:09:51,531 - INFO - Сохранён ID кнопки: 2557
+2025-08-04 16:09:51,531 - INFO - Update id=322627531 is handled. Duration 1077 ms by bot id=8090692411
+2025-08-04 16:14:20,841 - INFO - Polling stopped
+2025-08-04 16:14:20,841 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 16:14:20,841 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 16:14:21,091 - INFO - \u274e Сессия бота закрыта
+2025-08-04 16:14:21,091 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:14:21,091 - WARNING - \U0001f6d1 Бот остановлен вручную (KeyboardInterrupt)
+2025-08-04 16:14:29,241 - INFO - \u2705 Redis доступен из бота
+2025-08-04 16:14:29,616 - INFO - \U0001f680 Бот запущен и ожидает сообщения...
+2025-08-04 16:14:29,616 - INFO - Start polling
+2025-08-04 16:14:29,944 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:14:41,693 - INFO - Update id=322627532 is not handled. Duration 32 ms by bot id=8090692411
+2025-08-04 16:14:41,693 - ERROR - Cause exception while process update id=322627532 by bot id=8090692411
+NameError: name 'logger' is not defined
+Traceback (most recent call last):
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\hr_attendance_project\bot\handlers.py", line 44, in cmd_start
+    logger.info(f"Получен qr_id: {qr_id}")
+    ^^^^^^
+NameError: name 'logger' is not defined
+2025-08-04 16:15:01,090 - INFO - Update id=322627533 is handled. Duration 405 ms by bot id=8090692411
+2025-08-04 16:15:23,367 - INFO - Update id=322627534 is not handled. Duration 0 ms by bot id=8090692411
+2025-08-04 16:15:23,367 - ERROR - Cause exception while process update id=322627534 by bot id=8090692411
+NameError: name 'logger' is not defined
+Traceback (most recent call last):
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\hr_attendance_project\bot\handlers.py", line 44, in cmd_start
+    logger.info(f"Получен qr_id: {qr_id}")
+    ^^^^^^
+NameError: name 'logger' is not defined
+2025-08-04 16:17:10,060 - INFO - Update id=322627535 is handled. Duration 109 ms by bot id=8090692411
+2025-08-04 16:17:18,006 - INFO - Polling stopped
+2025-08-04 16:17:18,006 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 16:17:18,022 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 16:17:18,272 - INFO - \u274e Сессия бота закрыта
+2025-08-04 16:17:18,272 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:17:18,272 - WARNING - \U0001f6d1 Бот остановлен вручную (KeyboardInterrupt)
+2025-08-04 16:17:26,897 - INFO - Redis доступен из бота
+2025-08-04 16:17:26,897 - INFO - \u2705 Redis доступен из бота
+2025-08-04 16:17:27,288 - INFO - \U0001f680 Бот запущен и ожидает сообщения...
+2025-08-04 16:17:27,288 - INFO - Start polling
+2025-08-04 16:17:27,647 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:17:41,598 - INFO - Получен qr_id: 60afba3d
+2025-08-04 16:17:41,598 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754306256}
+2025-08-04 16:17:41,958 - INFO - Update id=322627536 is handled. Duration 375 ms by bot id=8090692411
+2025-08-04 16:17:43,582 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 16:17:44,863 - INFO - Сохранён ID кнопки: 2567
+2025-08-04 16:17:44,863 - INFO - Update id=322627537 is handled. Duration 1282 ms by bot id=8090692411
+2025-08-04 16:31:32,461 - INFO - Polling stopped
+2025-08-04 16:31:32,461 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 16:31:32,461 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 16:31:32,727 - INFO - \u274e Сессия бота закрыта
+2025-08-04 16:31:32,727 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:31:32,727 - WARNING - \U0001f6d1 Бот остановлен вручную (KeyboardInterrupt)
+2025-08-04 16:31:40,085 - INFO - Redis доступен из бота
+2025-08-04 16:31:40,101 - INFO - \u2705 Redis доступен из бота
+2025-08-04 16:31:40,413 - INFO - \U0001f680 Бот запущен и ожидает сообщения...
+2025-08-04 16:31:40,413 - INFO - Start polling
+2025-08-04 16:31:40,788 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:31:54,276 - INFO - Получен qr_id: e1f7eb2c
+2025-08-04 16:31:54,276 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754307107}
+2025-08-04 16:31:54,604 - INFO - Update id=322627538 is handled. Duration 359 ms by bot id=8090692411
+2025-08-04 16:31:55,823 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 16:31:57,401 - INFO - Сохранён ID кнопки: 2571
+2025-08-04 16:31:57,401 - INFO - Update id=322627539 is handled. Duration 1578 ms by bot id=8090692411
+2025-08-04 16:37:38,496 - INFO - Polling stopped
+2025-08-04 16:37:38,496 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 16:37:38,496 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 16:37:38,746 - INFO - \u274e Сессия бота закрыта
+2025-08-04 16:37:38,746 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:37:38,746 - WARNING - \U0001f6d1 Бот остановлен вручную (KeyboardInterrupt)
+2025-08-04 16:40:03,545 - INFO - Redis доступен из бота
+2025-08-04 16:40:03,904 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 16:40:03,904 - INFO - Start polling
+2025-08-04 16:40:04,263 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:40:29,515 - INFO - Update id=322627540 is not handled. Duration 31 ms by bot id=8090692411
+2025-08-04 16:40:29,515 - ERROR - Cause exception while process update id=322627540 by bot id=8090692411
+NameError: name 'logger' is not defined
+Traceback (most recent call last):
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\hr_attendance_project\bot\handlers.py", line 44, in cmd_start
+    logger.info(f"Получен qr_id: {qr_id}")
+    ^^^^^^
+NameError: name 'logger' is not defined
+2025-08-04 16:41:01,704 - INFO - Update id=322627541 is handled. Duration 329 ms by bot id=8090692411
+2025-08-04 16:41:15,999 - INFO - Update id=322627542 is not handled. Duration 0 ms by bot id=8090692411
+2025-08-04 16:41:15,999 - ERROR - Cause exception while process update id=322627542 by bot id=8090692411
+NameError: name 'logger' is not defined
+Traceback (most recent call last):
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\hr_attendance_project\bot\handlers.py", line 44, in cmd_start
+    logger.info(f"Получен qr_id: {qr_id}")
+    ^^^^^^
+NameError: name 'logger' is not defined
+2025-08-04 16:41:27,825 - INFO - Polling stopped
+2025-08-04 16:41:27,825 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 16:41:27,825 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 16:41:28,091 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:41:35,824 - INFO - Redis доступен из бота
+2025-08-04 16:41:36,199 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 16:41:36,199 - INFO - Start polling
+2025-08-04 16:41:36,949 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:43:06,154 - INFO - Update id=322627543 is not handled. Duration 15 ms by bot id=8090692411
+2025-08-04 16:43:06,154 - ERROR - Cause exception while process update id=322627543 by bot id=8090692411
+NameError: name 'logger' is not defined
+Traceback (most recent call last):
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\hr_attendance_project\bot\handlers.py", line 44, in cmd_start
+    logger.info(f"Получен qr_id: {qr_id}")
+    ^^^^^^
+NameError: name 'logger' is not defined
+2025-08-04 16:43:21,531 - INFO - Update id=322627544 is not handled. Duration 0 ms by bot id=8090692411
+2025-08-04 16:43:21,531 - ERROR - Cause exception while process update id=322627544 by bot id=8090692411
+NameError: name 'logger' is not defined
+Traceback (most recent call last):
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\hr_attendance_project\bot\handlers.py", line 44, in cmd_start
+    logger.info(f"Получен qr_id: {qr_id}")
+    ^^^^^^
+NameError: name 'logger' is not defined
+2025-08-04 16:46:05,401 - INFO - Polling stopped
+2025-08-04 16:46:05,401 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 16:46:05,401 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 16:46:05,667 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:46:13,135 - INFO - Redis доступен из бота
+2025-08-04 16:46:13,494 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 16:46:13,494 - INFO - Start polling
+2025-08-04 16:46:14,244 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:47:07,799 - INFO - Update id=322627545 is not handled. Duration 30 ms by bot id=8090692411
+2025-08-04 16:47:07,799 - ERROR - Cause exception while process update id=322627545 by bot id=8090692411
+NameError: name 'logger' is not defined
+Traceback (most recent call last):
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\hr_attendance_project\bot\handlers.py", line 44, in cmd_start
+    logger.info(f"Получен qr_id: {qr_id}")
+    ^^^^^^
+NameError: name 'logger' is not defined
+2025-08-04 16:47:52,156 - INFO - Update id=322627546 is handled. Duration 687 ms by bot id=8090692411
+2025-08-04 16:48:55,334 - INFO - Update id=322627547 is not handled. Duration 0 ms by bot id=8090692411
+2025-08-04 16:48:55,334 - ERROR - Cause exception while process update id=322627547 by bot id=8090692411
+NameError: name 'logger' is not defined
+Traceback (most recent call last):
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\hr_attendance_project\bot\handlers.py", line 44, in cmd_start
+    logger.info(f"Получен qr_id: {qr_id}")
+    ^^^^^^
+NameError: name 'logger' is not defined
+2025-08-04 16:52:04,966 - INFO - Redis доступен из бота
+2025-08-04 16:52:05,325 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 16:52:05,325 - INFO - Start polling
+2025-08-04 16:52:05,669 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:52:07,075 - INFO - Update id=322627548 is handled. Duration 358 ms by bot id=8090692411
+2025-08-04 16:52:23,526 - INFO - Получен qr_id: 7a67124a
+2025-08-04 16:52:23,526 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754308336}
+2025-08-04 16:52:23,635 - INFO - Update id=322627549 is handled. Duration 109 ms by bot id=8090692411
+2025-08-04 16:52:25,432 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 16:52:27,119 - INFO - Update id=322627550 is handled. Duration 1672 ms by bot id=8090692411
+2025-08-04 16:57:56,481 - INFO - Polling stopped
+2025-08-04 16:57:56,481 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 16:57:56,481 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 16:57:56,730 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:58:05,480 - INFO - Redis доступен из бота
+2025-08-04 16:58:05,808 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 16:58:05,808 - INFO - Start polling
+2025-08-04 16:58:06,121 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:58:16,745 - INFO - Получен qr_id: 9f5016ad
+2025-08-04 16:58:16,745 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754308690}
+2025-08-04 16:58:17,026 - INFO - Update id=322627551 is handled. Duration 312 ms by bot id=8090692411
+2025-08-04 16:58:18,338 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 16:58:19,666 - INFO - Сохранён ID кнопки: 2591
+2025-08-04 16:58:19,666 - INFO - Update id=322627552 is handled. Duration 1328 ms by bot id=8090692411
+2025-08-04 16:58:57,164 - INFO - Polling stopped
+2025-08-04 16:58:57,164 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 16:58:57,164 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 16:58:57,416 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 16:59:50,573 - INFO - Redis доступен из бота
+2025-08-04 16:59:50,901 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 16:59:50,901 - INFO - Start polling
+2025-08-04 16:59:51,183 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:00:04,775 - INFO - Получен qr_id: c4527496
+2025-08-04 17:00:04,775 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754308799}
+2025-08-04 17:00:05,399 - INFO - Update id=322627553 is handled. Duration 641 ms by bot id=8090692411
+2025-08-04 17:00:06,930 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 17:00:08,196 - INFO - Сохранён ID кнопки: 2595
+2025-08-04 17:00:08,196 - INFO - Update id=322627554 is handled. Duration 1265 ms by bot id=8090692411
+2025-08-04 17:01:58,372 - INFO - Polling stopped
+2025-08-04 17:01:58,372 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 17:01:58,372 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 17:01:58,622 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:02:07,355 - INFO - Redis доступен из бота
+2025-08-04 17:02:07,683 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 17:02:07,683 - INFO - Start polling
+2025-08-04 17:02:08,011 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:02:22,822 - INFO - Получен qr_id: b7d75c26
+2025-08-04 17:02:22,822 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754308937}
+2025-08-04 17:02:23,087 - INFO - Update id=322627555 is handled. Duration 297 ms by bot id=8090692411
+2025-08-04 17:02:24,478 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 17:02:25,556 - INFO - Сохранён ID кнопки: 2599
+2025-08-04 17:02:25,556 - INFO - Update id=322627556 is handled. Duration 1077 ms by bot id=8090692411
+2025-08-04 17:06:03,374 - INFO - Polling stopped
+2025-08-04 17:06:03,374 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 17:06:03,374 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 17:06:03,639 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:06:10,982 - INFO - Redis доступен из бота
+2025-08-04 17:06:11,310 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 17:06:11,310 - INFO - Start polling
+2025-08-04 17:06:11,654 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:06:28,998 - INFO - Получен qr_id: 341e5901
+2025-08-04 17:06:28,998 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754309181}
+2025-08-04 17:06:29,295 - INFO - Update id=322627557 is handled. Duration 312 ms by bot id=8090692411
+2025-08-04 17:06:30,607 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 17:06:31,732 - INFO - Сохранён ID кнопки: 2603
+2025-08-04 17:06:31,732 - INFO - Update id=322627558 is handled. Duration 1125 ms by bot id=8090692411
+2025-08-04 17:08:17,622 - INFO - Получен qr_id: adab45ec
+2025-08-04 17:08:17,622 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754309291}
+2025-08-04 17:08:17,716 - INFO - Update id=322627559 is handled. Duration 94 ms by bot id=8090692411
+2025-08-04 17:08:19,325 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 17:08:20,856 - INFO - Сохранён ID кнопки: 2607
+2025-08-04 17:08:20,856 - INFO - Update id=322627560 is handled. Duration 1530 ms by bot id=8090692411
+2025-08-04 17:13:48,602 - INFO - Получен qr_id: b8bb9603
+2025-08-04 17:13:48,602 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754309622}
+2025-08-04 17:13:48,711 - INFO - Update id=322627561 is handled. Duration 108 ms by bot id=8090692411
+2025-08-04 17:13:50,540 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 17:13:51,618 - INFO - Сохранён ID кнопки: 2611
+2025-08-04 17:13:51,618 - INFO - Update id=322627562 is handled. Duration 1077 ms by bot id=8090692411
+2025-08-04 17:17:33,407 - INFO - Получен qr_id: 40af15bd
+2025-08-04 17:17:33,407 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754309847}
+2025-08-04 17:17:33,516 - INFO - Update id=322627563 is handled. Duration 109 ms by bot id=8090692411
+2025-08-04 17:17:35,235 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 17:17:36,547 - INFO - Сохранён ID кнопки: 2615
+2025-08-04 17:17:36,547 - INFO - Update id=322627564 is handled. Duration 1311 ms by bot id=8090692411
+2025-08-04 17:19:18,888 - INFO - Получен qr_id: 6c542039
+2025-08-04 17:19:18,888 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754309953}
+2025-08-04 17:19:19,013 - INFO - Update id=322627565 is handled. Duration 125 ms by bot id=8090692411
+2025-08-04 17:19:20,591 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 17:19:22,231 - INFO - Сохранён ID кнопки: 2619
+2025-08-04 17:19:22,247 - INFO - Update id=322627566 is handled. Duration 1641 ms by bot id=8090692411
+2025-08-04 17:21:16,965 - INFO - Polling stopped
+2025-08-04 17:21:16,965 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 17:21:16,965 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 17:21:17,215 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:21:25,792 - INFO - Redis доступен из бота
+2025-08-04 17:21:26,104 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 17:21:26,120 - INFO - Start polling
+2025-08-04 17:21:26,370 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:21:50,788 - INFO - Получен qr_id: 85a59235
+2025-08-04 17:21:50,788 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754310104}
+2025-08-04 17:21:51,116 - INFO - Update id=322627567 is handled. Duration 344 ms by bot id=8090692411
+2025-08-04 17:21:52,444 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 17:21:53,679 - INFO - Сохранён ID кнопки: 2623
+2025-08-04 17:21:53,679 - INFO - Update id=322627568 is handled. Duration 1234 ms by bot id=8090692411
+2025-08-04 17:26:35,406 - INFO - Polling stopped
+2025-08-04 17:26:35,406 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 17:26:35,406 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 17:26:35,656 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:26:43,843 - INFO - Redis доступен из бота
+2025-08-04 17:26:44,171 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 17:26:44,171 - INFO - Start polling
+2025-08-04 17:26:44,499 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:27:50,190 - INFO - Получен qr_id: ded4ede5
+2025-08-04 17:27:50,190 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754310463}
+2025-08-04 17:27:50,518 - INFO - Update id=322627569 is handled. Duration 342 ms by bot id=8090692411
+2025-08-04 17:27:51,830 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 17:27:52,877 - INFO - Сохранён ID кнопки: 2627
+2025-08-04 17:27:52,877 - INFO - Update id=322627570 is handled. Duration 1047 ms by bot id=8090692411
+2025-08-04 17:32:18,334 - INFO - Polling stopped
+2025-08-04 17:32:18,334 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 17:32:18,334 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 17:32:18,584 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:32:26,302 - INFO - Redis доступен из бота
+2025-08-04 17:32:26,676 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 17:32:26,676 - INFO - Start polling
+2025-08-04 17:32:27,036 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:40:24,660 - INFO - Polling stopped
+2025-08-04 17:40:24,660 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 17:40:24,660 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 17:40:24,926 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:40:32,346 - INFO - Redis доступен из бота
+2025-08-04 17:40:32,675 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 17:40:32,675 - INFO - Start polling
+2025-08-04 17:40:33,003 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:41:51,097 - INFO - Получен qr_id: 28558016
+2025-08-04 17:41:51,097 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754311305}
+2025-08-04 17:41:51,394 - INFO - Update id=322627571 is handled. Duration 327 ms by bot id=8090692411
+2025-08-04 17:41:53,113 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 17:41:54,191 - INFO - Сохранён ID кнопки: 2631
+2025-08-04 17:41:54,191 - INFO - Update id=322627572 is handled. Duration 1077 ms by bot id=8090692411
+2025-08-04 17:43:03,080 - INFO - Получен qr_id: 95de23a2
+2025-08-04 17:43:03,080 - INFO - Сессия из кэша: {'location': 'korpus-1', 'created_at': 1754311373}
+2025-08-04 17:43:03,220 - INFO - Update id=322627573 is handled. Duration 141 ms by bot id=8090692411
+2025-08-04 17:43:04,783 - INFO - user_id=7421578363, key=webapp_msg:7421578363
+2025-08-04 17:43:05,954 - INFO - Сохранён ID кнопки: 2635
+2025-08-04 17:43:05,954 - INFO - Update id=322627574 is handled. Duration 1170 ms by bot id=8090692411
+2025-08-04 17:48:08,500 - INFO - Polling stopped
+2025-08-04 17:48:08,500 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 17:48:08,500 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 17:48:08,750 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:48:16,171 - INFO - Redis доступен из бота
+2025-08-04 17:48:16,499 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 17:48:16,499 - INFO - Start polling
+2025-08-04 17:48:17,062 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 17:54:10,204 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 17:54:10,204 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 17:54:21,452 - INFO - Connection established (tryings = 1, bot id = 8090692411)
+2025-08-04 18:08:02,056 - INFO - Redis доступен из бота
+2025-08-04 18:08:02,400 - INFO - Бот запущен... ждёт сообщения.
+2025-08-04 18:08:02,400 - INFO - Start polling
+2025-08-04 18:08:02,775 - INFO - Run polling for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+2025-08-04 18:16:47,677 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 18:16:47,677 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 18:16:58,927 - INFO - Connection established (tryings = 1, bot id = 8090692411)
+2025-08-04 18:16:58,927 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 18:16:58,927 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 18:17:10,176 - INFO - Connection established (tryings = 1, bot id = 8090692411)
+2025-08-04 18:20:11,698 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 18:20:11,698 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 18:20:22,933 - INFO - Connection established (tryings = 1, bot id = 8090692411)
+2025-08-04 18:37:00,449 - INFO - Polling stopped
+2025-08-04 18:37:00,449 - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-08-04 18:37:00,449 - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8090692411)
+2025-08-04 18:37:00,714 - INFO - Polling stopped for bot @Attendance_kuam_bot id=8090692411 - 'Attendance_Bot KUAM'
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\HR_Site 2.0\hr_attendance_project\bot\main.py", line 32, in <module>
+    asyncio.run(main())
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR_Site 2.0\hr_attendance_project\bot\main.py", line 28, in main
+    print("\U0001f680 Бот запущен... ждёт сообщения.")
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 0: character maps to <undefined>
+^CTraceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\HR\hr_attendance_project\bot\main.py", line 32, in <module>
+    asyncio.run(main())
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR\hr_attendance_project\bot\main.py", line 28, in main
+    print("\U0001f680 Бот запущен... ждёт сообщения.")
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 0: character maps to <undefined>
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\HR\hr_attendance_project\bot\main.py", line 32, in <module>
+    asyncio.run(main())
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR\hr_attendance_project\bot\main.py", line 28, in main
+    print("\U0001f680 Бот запущен... ждёт сообщения.")
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 0: character maps to <undefined>
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\HR\hr_attendance_project\bot\main.py", line 32, in <module>
+    asyncio.run(main())
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR\hr_attendance_project\bot\main.py", line 28, in main
+    print("\U0001f680 Бот запущен... ждёт сообщения.")
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 0: character maps to <undefined>
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\HR\hr_attendance_project\bot\main.py", line 32, in <module>
+    asyncio.run(main())
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\HR\hr_attendance_project\bot\main.py", line 28, in main
+    print("\U0001f680 Бот запущен... ждёт сообщения.")
+  File "C:\Users\Администратор.ERASMUS\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 0: character maps to <undefined>

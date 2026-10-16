@@ -1,0 +1,17 @@
+# Виртуальные окружения
+venv/
+env/
+ENV/
+.venv/
+
+# Кэш Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Локальные настройки и IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store

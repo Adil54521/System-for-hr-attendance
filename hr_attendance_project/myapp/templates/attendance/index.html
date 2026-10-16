@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Проверка геолокации</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .status {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 2em; /* крупный текст */
+      color: #333;
+      white-space: pre-line;
+      text-align: center;
+    }
+    
+    .status.success {
+      color: green;
+    }
+    
+    .status.error {
+      color: red;
+    }
+    .closeBtn {
+      display: block;                 /* блок, чтобы центрировалось */
+      margin: 40px auto 0 auto;       /* сверху 40px, снизу 0, по центру */
+      padding: 25px 60px;             /* больше высота и ширина */
+      font-size: 2em;                 /* крупный текст */
+      font-weight: bold;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 16px;            /* чуть больше скругление */
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.1s;
+      box-shadow: 0 6px 10px rgba(0,0,0,0.25); /* более объёмная тень */
+      max-width: 90%;
+      width: fit-content;             /* чтобы размер под текст */
+    }
+    .closeBtn:active {
+      transform: scale(0.95);    /* эффект нажатия */
+    }
+  </style>
+</head>
+<body>
+  <!--<audio id="successSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3" preload="auto"></audio>-->
+  <!--<audio id="errorSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3" preload="auto"></audio>-->
+
+  <h2>📲 Проверка геолокации</h2>
+  <div id="status" class="status">⏳ Получаем данные...</div>
+  <button id="closeBtn">Закрыть</button>
+<script>
+(async function() {
+  const status = document.getElementById("status");
+  const debug = document.getElementById("debug");
+  const btn = document.getElementById("closeBtn");
+  btn.addEventListener("click", () => {
+    if (window.Telegram && Telegram.WebApp) {
+      Telegram.WebApp.close();
+    }
+  });
+    // небольшой эффект нажатия для кнопки
+  btn.addEventListener("mousedown", () => btn.style.transform = "scale(0.95)");
+  btn.addEventListener("mouseup", () => btn.style.transform = "scale(1)");
+  btn.addEventListener("mouseleave", () => btn.style.transform = "scale(1)");
+
+
+  // Получаем параметры из URL
+  const params = new URLSearchParams(window.location.search);
+  const phone = params.get("phone");
+  const qr_id = params.get("qr_id");
+  const telegram_id = params.get("telegram_id");
+  const accuracy = params.get("accuracy");
+  let latitude = params.get("latitude");
+  let longitude = params.get("longitude");
+  const actionStorageKey = `attendance_action:${qr_id || "no-qr"}:${telegram_id || phone || "anonymous"}`;
+  let action_id = params.get("action_id") || sessionStorage.getItem(actionStorageKey);
+  if (!action_id) {
+    action_id = (window.crypto && crypto.randomUUID)
+      ? crypto.randomUUID()
+      : "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
+          const r = Math.random() * 16 | 0;
+          return (c === "x" ? r : (r & 3 | 8)).toString(16);
+        });
+    sessionStorage.setItem(actionStorageKey, action_id);
+  }
+
+  //logOnPage("📌 phone:", phone);
+  //logOnPage("📌 qr_id:", qr_id);
+  //logOnPage("📌 telegram_id:", telegram_id);
+  //logOnPage("📌 accuracy:", accuracy);
+  //logOnPage("📌 latitude:", latitude);
+  //logOnPage("📌 longitude:", longitude);
+
+
+  // Определяем URL API и локацию
+  let apiUrl = null;
+  let locationName = null;
+  if (!qr_id) {
+    console.log("qr_id не передан в URL");
+    status.textContent = "❌ Находитесь вне кампуса";
+    return;
+  }
+  if (qr_id === "static_korpus-2") {
+    apiUrl = "https://hrattendance.kuam.kz/api/webapp-checkin-static/";
+    locationName = "korpus-2";
+  } else if (qr_id === "static_korpus-3") {
+    apiUrl = "https://hrattendance.kuam.kz/api/webapp-checkin-static/";
+    locationName = "korpus-3";
+  } else if (qr_id === "static_korpus-1") {
+    apiUrl = "https://hrattendance.kuam.kz/api/webapp-checkin-static/";
+    locationName = "korpus-1";
+  } else {
+    status.textContent = "❌ Находитесь вне кампуса";
+    return;
+  }
+
+  // Данные для отправки
+  const data = {
+    source: "telegram_webapp",
+    action_id: action_id,
+    latitude: latitude || null,
+    longitude: longitude || null,
+    accuracy: accuracy || null,
+    userAgent: navigator.userAgent,
+    qr_id: qr_id,
+    telegram_id: telegram_id,
+    location: locationName
+  };
+
+  // Передаем телефон всегда
+  if (phone) {
+    data.phone = phone;
+  }
+  // Если telegram_id нет, добавляем phone в данные
+  if (!telegram_id) {
+    data.phone = phone;
+  }
+
+  console.log("📤 Отправляем следующие данные:", data);
+
+  status.textContent = "📡 Получаем координаты...";
+
+  // Если координаты не переданы, получаем их с помощью geolocation
+  if (!latitude || !longitude) {
+    if (navigator.geolocation) {
+      try {
+        const pos = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true, timeout: 10000 });
+        });
+        data.latitude = pos.coords.latitude;
+        data.longitude = pos.coords.longitude;
+        data.accuracy = pos.coords.accuracy;
+        console.log("✅ Геолокация получена:", data.latitude, data.longitude, "точность:", data.accuracy);
+      } catch (e) {
+        console.warn("⚠️ Не удалось получить геолокацию:", e);
+        status.textContent = "⚠️ Не удалось определить координаты, отправляем без них...";
+      }
+    } else {
+      console.warn("⚠️ Геолокация не поддерживается");
+      status.textContent = "⚠️ Геолокация не поддерживается, отправляем без координат...";
+    }
+  }
+
+  // Отправка данных на сервер
+  status.textContent = "📤 Отправка на сервер...";
+
+  try {
+    const res = await fetch(apiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    const text = await res.text();
+    console.log("📦 Ответ от сервера:", text);
+
+    let result;
+    try {
+      result = JSON.parse(text);
+    } catch (e) {
+      console.error("❌ Сервер вернул не JSON:", text);
+      throw new Error("Сервер вернул не JSON");
+    }
+
+    if (res.ok) {
+      status.className = "status success";
+    
+      let actionText = (result.status || "IN").toUpperCase();
+      status.textContent = "✅ " + actionText;
+    
+      const payload = {
+        status: result.status || "IN",
+        qr_id,
+        telegram_id,
+        latitude: data.latitude,
+        longitude: data.longitude
+      };
+    
+      console.log("📤 SENDDATA:", payload);
+      Telegram.WebApp.sendData(JSON.stringify(payload));
+      sessionStorage.removeItem(actionStorageKey);
+    
+    } else {
+      status.className = "status error";
+    
+      let actionText = (result.error || "ERROR").toUpperCase();
+      status.textContent = "❌ " + actionText;
+    
+      const payload = {
+        status: "ERROR",
+        error: result.error || "unknown"
+      };
+    
+      console.log("📤 SENDDATA ERROR:", payload);
+      Telegram.WebApp.sendData(JSON.stringify(payload));
+    }
+
+  } catch (err) {
+    console.error("❌ Ошибка сети или JSON:", err);
+    status.textContent = "❌ Сетевая ошибка или неверный JSON:\n" + err;
+  }
+
+})();
+
+//function logOnPage(...args) {
+//  const text = args.map(a =>
+//    typeof a === "object" ? JSON.stringify(a, null, 2) : String(a)
+//  ).join(" ");
+//  debug.textContent += text + "\n\n";
+//}
+</script>
+
+</body>
+</html>

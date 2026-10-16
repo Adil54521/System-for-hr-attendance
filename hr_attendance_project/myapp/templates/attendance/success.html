@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title|default:"Регистрация" }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .message-box {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        .message-box h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .message-box p {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .btn-back {
+            margin-top: 30px;
+            padding: 12px 24px;
+            font-size: 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+        .btn-back:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="message-box">
+    {% if title and icon %}
+        <h1 style="color: {% if alert_type == 'danger' %}#dc3545{% elif alert_type == 'warning' %}#ffc107{% else %}green{% endif %};">
+            {{ icon }} {{ title }}
+        </h1>
+    {% else %}
+        <h1 style="color: green;">✅ {{ visit_type|title }} зарегистрирован</h1>
+    {% endif %}
+
+    {% if fio %}
+        <p>👤 {{ fio }}</p>
+    {% endif %}
+
+    {% if worked %}
+        <p>⏱ Отработано: {{ worked }}</p>
+    {% endif %}
+
+    {% if status %}
+        <p>📊 Статус: {{ status }}</p>
+    {% endif %}
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <a href="{% url 'index' %}" class="btn-back">🔙 Назад на главную</a>
+</div>
+
+</body>
+</html>

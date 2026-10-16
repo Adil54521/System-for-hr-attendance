@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Доступ запрещён</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 100px;
+      background-color: #f9f9f9;
+    }
+    .box {
+      display: inline-block;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #cc0000;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>🚫 Вход заблокирован</h2>
+    <p>Вы не подключены к Wi-Fi кампуса. Подключитесь и попробуйте снова.</p>
+    <p><strong>Ваш IP:</strong> {{ ip }}</p>
+    <p><strong>Запрошенный параметр:</strong> {{ start }}</p>
+  </div>
+</body>
+</html>

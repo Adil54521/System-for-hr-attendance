@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отметка абитуриента</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background: #f7f8fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem 3rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+        .success {
+            color: #0b7a0b;
+            font-size: 1.3rem;
+        }
+        .error {
+            color: #b30000;
+            font-size: 1.3rem;
+        }
+        .subtitle {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        {% if success %}
+            <div class="success">✅ {{ message }}</div>
+        {% else %}
+            <div class="error">⚠️ {{ message }}</div>
+        {% endif %}
+        <p class="subtitle">Ваш IP: {{ ip }}</p>
+    </div>
+</body>
+</html>

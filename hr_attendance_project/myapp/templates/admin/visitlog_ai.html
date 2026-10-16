@@ -1,0 +1,22 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div style="margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: #fafafa;">
+  <h2>🤖 Спросить ИИ</h2>
+  <form method="get" action="" style="margin-bottom: 15px;">
+    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Введите вопрос"
+           style="width: 60%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" />
+    <button type="submit" class="button" style="padding: 8px 16px;">Спросить</button>
+  </form>
+
+  {% if answer %}
+    <div style="background: #fff; border: 1px solid #ccc; padding: 12px; border-radius: 6px;">
+      <strong>Ответ ИИ:</strong>
+      <p>{{ answer|safe }}</p>
+    </div>
+  {% endif %}
+
+  <p><a href="{% url 'admin:myapp_visitlog_changelist' %}" class="button">⬅ Вернуться к списку визитов</a></p>
+</div>
+{% endblock %}

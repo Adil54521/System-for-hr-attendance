@@ -1,0 +1,133 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+
+{% block content %}
+{{ block.super }}  {# Это выводит стандартную таблицу, фильтры, поиск #}
+<!-- Плавающая кнопка в правом нижнем углу -->
+<button id="toggleChat" 
+        style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; 
+               padding: 12px 20px; border: none; border-radius: 50px; 
+               background: #007bff; color: #fff; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
+  💬 Открыть чат
+</button>
+<div id="chatContainer" style="display: none; flex-direction: column; position: fixed; bottom: 80px; right: 20px; z-index: 9998; width: 400px; max-height: 80%; overflow: auto; background: #fff; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); padding: 15px; gap: 20px;">
+
+  <div style="flex: 2;">
+    <div style="padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; margin-bottom: 20px;">
+      <h2>🤖 Спросить ИИ</h2>
+
+      <form id="aiForm" style="margin-bottom: 15px;">
+        {% csrf_token %}
+        <input id="frm" type="text" name="ai_q" placeholder="Введите вопрос"
+               style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px;" />
+        <button type="submit" class="button" style="padding: 8px 16px;">Спросить</button>
+      </form>
+
+      <div style="background: #fff; border: 1px solid #ccc; padding: 12px; border-radius: 6px;">
+        <strong>Ответ ИИ:</strong>
+        <p id="aiAnswer">{{ parsed_data }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex: 1; max-height: 300px; overflow-y: auto; border: 1px solid #ccc; border-radius: 8px; padding: 12px; background: #f9f9f9;">
+    <h3>💬 История чатов</h3>
+    <button id="clearHistory" style="margin-bottom: 10px; padding: 4px 8px;">Очистить историю</button>
+    <ul id="chatHistory" style="list-style: none; padding: 0; margin: 0;">
+    </ul>
+  </div>
+
+</div>
+<style>
+#aiAnswer {
+   overflow-y: scroll;
+   height: 60px;
+}
+</style>
+
+<script>
+const toggleBtn = document.getElementById('toggleChat');
+const chatContainer = document.getElementById('chatContainer');
+function getCookie(name) {
+    let cookieValue = null;
+    for (const cookie of document.cookie.split(';')) {
+        const c = cookie.trim();
+        if (c.startsWith(name + '=')) {
+            cookieValue = decodeURIComponent(c.slice(name.length + 1));
+        }
+    }
+    return cookieValue;
+}
+
+// Добавление записи в историю
+function addToHistory(question, answer, save=true) {
+    const ul = document.getElementById("chatHistory");
+    const li = document.createElement("li");
+    li.style.borderBottom = "1px solid #ddd";
+    li.style.padding = "6px 0";
+    li.innerHTML = "<strong>Вопрос:</strong> " + question + "<br><strong>Ответ:</strong> " + answer;
+
+    ul.prepend(li);
+
+    if(save) {
+        // Сохраняем в localStorage
+        let history = JSON.parse(localStorage.getItem("chatHistory") || "[]");
+        history.push({question, answer});
+        localStorage.setItem("chatHistory", JSON.stringify(history));
+    }
+}
+
+// Загрузка истории из localStorage при старте
+function loadHistory() {
+    const history = JSON.parse(localStorage.getItem("chatHistory") || "[]");
+    history.forEach(item => addToHistory(item.question, item.answer, false));
+}
+
+// Очистка истории
+document.getElementById("clearHistory").addEventListener("click", function() {
+    localStorage.removeItem("chatHistory");
+    document.getElementById("chatHistory").innerHTML = "";
+});
+
+// Перехватываем submit формы
+document.getElementById("aiForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const question = document.getElementById("frm").value;
+    const csrftoken = getCookie('csrftoken');
+
+    const formData = new FormData();
+    formData.append("ai_q", question);
+
+    try {
+        const response = await fetch("{% url 'fetch' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrftoken
+            },
+            body: formData
+        });
+
+        const data = await response.json();
+        const answer = data.answer || data.error || "Нет ответа";
+
+        document.getElementById("aiAnswer").innerText = answer;
+
+        // Сохраняем в историю
+        addToHistory(question, answer);
+
+    } catch (err) {
+        document.getElementById("aiAnswer").innerText = "Ошибка запроса: " + err;
+    }
+});
+
+// Загружаем историю при загрузке страницы
+loadHistory();
+
+toggleBtn.addEventListener('click', () => {
+    const isHidden = chatContainer.style.display === 'none' || chatContainer.style.display === '';
+    chatContainer.style.display = isHidden ? 'flex' : 'none';
+    toggleBtn.textContent = isHidden ? '❌ Закрыть чат' : '💬 Открыть чат';
+});
+</script>
+{% endblock %}

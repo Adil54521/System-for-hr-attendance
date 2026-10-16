@@ -1,0 +1,41 @@
+{% load i18n %}
+<div class="filter">
+  <h3>{% trans title %}</h3>
+
+  <label>{% trans "С" %}:</label>
+  <input type="date" id="start_date" name="start_date" value="{{ request.GET.start_date|default:'' }}" 
+         style="margin-right:5px; padding:2px;">
+
+  <label>{% trans "По" %}:</label>
+  <input type="date" id="end_date" name="end_date" value="{{ request.GET.end_date|default:'' }}" 
+         style="margin-right:5px; padding:2px;">
+
+  <button type="button" id="apply-date-filter">{% trans "Применить" %}</button>
+  <button type="button" id="clear-date-filter">{% trans "Сбросить" %}</button>
+</div>
+
+<script>
+(function(){
+  const applyBtn = document.getElementById("apply-date-filter");
+  const clearBtn = document.getElementById("clear-date-filter");
+
+  applyBtn.addEventListener("click", function(){
+    const params = new URLSearchParams(window.location.search);
+    const start = document.getElementById("start_date").value;
+    const end = document.getElementById("end_date").value;
+
+    if(start && end){
+      params.set("start_date", start);
+      params.set("end_date", end);
+    }
+    window.location.search = params.toString();
+  });
+
+  clearBtn.addEventListener("click", function(){
+    const params = new URLSearchParams(window.location.search);
+    params.delete("start_date");
+    params.delete("end_date");
+    window.location.search = params.toString();
+  });
+})();
+</script>

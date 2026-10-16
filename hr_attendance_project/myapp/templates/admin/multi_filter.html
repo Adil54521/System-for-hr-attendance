@@ -1,0 +1,71 @@
+{% load i18n %}
+<div class="filter">
+  <h3>{% trans title %}</h3>
+
+
+  <input type="text" id="search-{{ spec.parameter_name }}" placeholder="{% trans 'Поиск ФИО' %}"
+         style="width:100%; margin-bottom:6px; padding:4px; box-sizing:border-box;">
+
+  <!-- Список ФИО с прокруткой -->
+  <div id="list-{{ spec.parameter_name }}"
+       style="max-height:250px; overflow-y:auto; border:1px solid #ddd; padding:5px; border-radius:4px; background:#fff;">
+    {% for val, label in spec.lookup_choices %}
+      <label style="display:block; margin-bottom:3px;" class="fio-option">
+        <input type="checkbox"
+               name="{{ spec.parameter_name }}"
+               value="{{ val }}"
+               {% if val in spec.value %}checked{% endif %}>
+        {{ label }}
+      </label>
+    {% empty %}
+      <p><em>{% trans "Нет данных" %}</em></p>
+    {% endfor %}
+  </div>
+
+  <div style="margin-top:6px;">
+    <button type="button" id="apply-{{ spec.parameter_name }}" style="margin-right:5px;">
+      {% trans "Применить" %}
+    </button>
+    <button type="button" id="clear-{{ spec.parameter_name }}">
+      {% trans "Сбросить" %}
+    </button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const paramName = "{{ spec.parameter_name }}";
+  const applyBtn = document.getElementById("apply-" + paramName);
+  const clearBtn = document.getElementById("clear-" + paramName);
+  const searchInput = document.getElementById("search-" + paramName);
+  const options = document.querySelectorAll("#list-" + paramName + " .fio-option");
+
+  // Применить фильтр
+  applyBtn.addEventListener("click", function(){
+    const params = new URLSearchParams(window.location.search);
+    params.delete(paramName);
+
+    document.querySelectorAll('input[name="'+paramName+'"]:checked').forEach(cb=>{
+      params.append(paramName, cb.value);
+    });
+
+    window.location.search = params.toString();
+  });
+
+  // Сбросить фильтр
+  clearBtn.addEventListener("click", function(){
+    const params = new URLSearchParams(window.location.search);
+    params.delete(paramName);
+    window.location.search = params.toString();
+  });
+
+  // Поиск по ФИО
+  searchInput.addEventListener("keyup", function(){
+    const q = this.value.toLowerCase();
+    options.forEach(opt=>{
+      const text = opt.textContent.toLowerCase();
+      opt.style.display = text.includes(q) ? "block" : "none";
+    });
+  });
+})();
+</script>

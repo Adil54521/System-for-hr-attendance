@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% csrf_token %}
+<div class="received-data">
+    {% for item in array %}
+        <div class="received-data__item">
+            <p>
+                <strong>Телефон:</strong>
+                {{ item.phone }}
+            </p>
+            <p>
+                <strong>Получатель:</strong>
+                {{ item.recipient }}
+            </p>
+            <p>
+                <strong>Тема Сообщения:</strong>
+                {{ item.header_message }}
+            </p>
+            <p>
+                <strong>Сообщение:</strong>
+                {{ item.message }}
+            </p>
+        </div>
+    {% empty %}
+        <p>Данные ещё не получены</p>
+    {% endfor %}
+
+    {% if attachment_name %}
+        <div class="received-file">
+            <p>
+                <strong>Прикреплённый файл:</strong>
+                {{ attachment_name }}
+            </p>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>

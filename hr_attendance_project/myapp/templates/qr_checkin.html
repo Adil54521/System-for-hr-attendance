@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>QR-код для регистрации</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+        }
+
+        .qr-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .qr-container img {
+            margin-top: 15px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .info {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="qr-container">
+        <h1>QR-код для входа</h1>
+        <p>Отсканируйте QR-код для регистрации на территории <strong>{{ location }}</strong></p>
+        <img src="{% url 'qr_image' location=location %}" alt="QR-код">
+        <div class="info">
+            <strong>Безопасный токен:</strong><br>{{ token }}
+        </div>
+    </div>
+</body>
+</html>

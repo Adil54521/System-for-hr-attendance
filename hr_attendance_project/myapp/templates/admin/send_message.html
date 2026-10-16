@@ -1,0 +1,1848 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+
+{% block content %}
+<!--{{ block.super }}-->
+<form class="message-form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ selected_phones|json_script:"selected-phones-data" }}
+    <aside class="history-panel">
+        <div class="history-panel__header">
+            <div>
+                <span class="eyebrow">Сообщения</span>
+                <h3>История диалогов</h3>
+            </div>
+            <span class="history-panel__count">{{ conversations|length }}</span>
+        </div>
+
+        <div class="history-panel__list">
+            {% for conversation in conversations %}
+                    <button
+                        class="conversation{% if conversation.is_active %} conversation--active{% endif %}"
+                        type="button"
+                        data-recipient-id="{{ conversation.recipient.pk }}"
+                        data-history-url="{% url 'conversation_history' conversation.recipient.pk %}"
+                        aria-label="Открыть диалог с {{ conversation.recipient.fio }}"
+                    >
+                    <span class="conversation__avatar">
+                        {{ conversation.recipient.fio|slice:":1"|upper }}
+                    </span>
+
+                    <span class="conversation__content">
+                        <span class="conversation__topline">
+                            <strong class="conversation__name">{{ conversation.recipient.fio }}</strong>
+                            <time class="conversation__time"
+                                  datetime="{{ conversation.updated_at|date:'c' }}">
+                                {{ conversation.updated_at|date:"d.m H:i" }}
+                            </time>
+                        </span>
+
+                        {% if conversation.last_subject %}
+                            <span class="conversation__subject">{{ conversation.last_subject }}</span>
+                        {% endif %}
+                        <span
+                            class="conversation__status
+                            {% if conversation.is_read %}
+                                conversation__status--read
+                            {% else %}
+                                conversation__status--waiting
+                            {% endif %}"
+                            data-history-id="{{ conversation.history_id }}"
+                        >
+                            {% if conversation.is_read %}
+                                ✓ Прочитано {{ conversation.read_at|date:"d.m H:i" }}
+                            {% else %}
+                                ⏳ Ожидает подтверждения
+                            {% endif %}
+                        </span>
+                        <span class="conversation__preview">
+                            {{ conversation.last_message|default:"Вложения без текста"|truncatechars:52 }}
+                        </span>
+                    </span>
+
+                    {% if conversation.unread_count %}
+                        <span class="conversation__badge">{{ conversation.unread_count }}</span>
+                    {% endif %}
+                </button>
+            {% empty %}
+                <div class="history-panel__empty">
+                    <span class="history-panel__empty-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M7 9h10M7 13h7M5 19l-1 3 4-2h10a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6a3 3 0 0 0-3 3v10a3 3 0 0 0 2 3Z"
+                                  stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <strong>История пока пуста</strong>
+                    <p>После первой отправки здесь появится диалог с сотрудником</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="history-panel__hint">
+            Последние диалоги отображаются сверху
+        </div>
+    </aside>
+
+    <section class="composer">
+        <header class="composer__header">
+            <div class="composer__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M4 5.5h16v13H4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                    <path d="m5 7 7 5 7-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div>
+                <span class="eyebrow">Центр уведомлений</span>
+                <h2 id="composer-title">Новое сообщение</h2>
+                <p>Выберите сотрудника, добавьте текст и при необходимости прикрепите файл</p>
+            </div>
+        </header>
+
+        <div class="composer__body">
+            <div class="selected-recipients-info">
+                Сообщение будет отправлено выбранным сотрудникам:
+                <strong>{{ selected_count }}</strong>
+            </div>
+            <label class="form-field">
+                <span class="form-field__label">Тема сообщения</span>
+                <span class="input-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M7 7h10M7 12h10M7 17h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                    <input type="text" name="subject" id="subject" maxlength="200"
+                           placeholder="Например: Изменение расписания">
+                </span>
+            </label>
+
+            <label class="form-field form-field--message">
+                <span class="form-field__label">Сообщение</span>
+                <textarea name="message" id="message"
+                          placeholder="Напишите сообщение сотруднику..." required></textarea>
+            </label>
+
+            <div class="message-form__actions">
+                <label class="file-button" for="attachment">
+                    <input type="file" name="attachment" id="attachment">
+                    <span class="file-button__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="m8.5 12.5 6.4-6.4a3 3 0 0 1 4.2 4.2l-8.5 8.5a5 5 0 0 1-7.1-7.1l8.1-8.1"
+                                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                    <span class="file-button__text">
+                        <strong>Прикрепить файл</strong>
+                        <small id="attachment-name">PDF, DOCX, JPG или PNG</small>
+                    </span>
+                </label>
+
+                <button class="send-button" type="submit" name="send" id="send-button">
+                    <span>Отправить</span>
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="m5 12 14-7-4.5 14-3-5.5L5 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                        <path d="m11.5 13.5 3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+    <aside class="recipients">
+        <div class="recipients__header">
+            <div>
+                <span class="eyebrow">
+                    Получатели
+                </span>
+
+                <h3>Будет отправлено</h3>
+            </div>
+
+            <span class="recipients__count">
+                {{ selected_count }}
+            </span>
+        </div>
+
+        <div class="recipients__search">
+            <svg viewBox="0 0 24 24" fill="none">
+                <circle
+                    cx="11"
+                    cy="11"
+                    r="7"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                />
+                <path
+                    d="m16 16 4 4"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                />
+            </svg>
+
+            <input
+                type="search"
+                id="recipient-search"
+                placeholder="Поиск среди выбранных..."
+                autocomplete="off"
+            >
+        </div>
+
+        <div class="recipients__list">
+            {% for item in q_obj %}
+                <div class="recipient recipient--static">
+                    <span class="recipient__avatar">
+                        {{ item.fio|slice:":1"|upper }}
+                    </span>
+
+                    <span class="recipient__info">
+                        <span class="recipient__name">
+                            {{ item.fio }}
+                        </span>
+
+                        <span class="phone">
+                            {{ item.phone }}
+                        </span>
+
+                        {% if item.job_title %}
+                            <span class="recipient__job">
+                                {{ item.job_title }}
+                            </span>
+                        {% endif %}
+                    </span>
+
+                    <span
+                        class="recipient__included"
+                        title="Выбран в Django Admin"
+                    >
+                        ✓
+                    </span>
+                </div>
+            {% empty %}
+                <div class="recipients__empty">
+                    <span>👥</span>
+                    <strong>Получатели не выбраны</strong>
+                    <p>
+                        Вернитесь в Django Admin и отметьте
+                        нужных сотрудников
+                    </p>
+                </div>
+            {% endfor %}
+
+            <div
+                class="recipients__not-found"
+                id="recipients-not-found"
+            >
+                <span>🔍</span>
+                <strong>Сотрудник не найден</strong>
+            </div>
+        </div>
+
+        <div class="recipients__hint">
+            <span>i</span>
+            Получатели выбраны в Django Admin
+        </div>
+    </aside>
+</form>
+<div class="history-modal" id="history-modal" aria-hidden="true">
+    <div class="history-modal__window" role="dialog" aria-modal="true" aria-labelledby="history-modal-title">
+        <header class="history-modal__header">
+            <div>
+                <span class="eyebrow">
+                    История сообщений
+                </span>
+
+                <h2 id="history-modal-title">
+                    Загрузка...
+                </h2>
+
+                <p id="history-modal-phone"></p>
+            </div>
+
+            <button class="history-modal__close" id="history-modal-close" type="button" aria-label="Закрыть">×</button>
+        </header>
+
+        <div class="history-modal__content" id="history-modal-content"></div>
+    </div>
+</div>
+<div id="notification-toast" class="notification-toast" role="status" aria-live="polite">
+    <div class="notification-toast__icon"></div>
+    <div class="notification-toast__content">
+        <div id="notification-title" class="notification-toast__title"></div>
+        <div id="notification-message" class="notification-toast__message"></div>
+    </div>
+    <button type="button" id="notification-close" class="notification-toast__close" aria-label="Закрыть">×</button>
+</div>
+
+<style>
+    :root {
+        --primary: #4f46e5;
+        --primary-dark: #4338ca;
+        --primary-soft: #eef2ff;
+        --text: #172033;
+        --muted: #7b8498;
+        --line: #e7eaf0;
+    }
+
+    .message-form, .message-form * { box-sizing: border-box; }
+
+    .message-form {
+        display: grid;
+        grid-template-columns: 310px minmax(500px, 1fr);
+        width: min(1200px, calc(100% - 40px));
+        min-height: 680px;
+        margin: 40px auto;
+        overflow: hidden;
+        color: var(--text);
+        background: #fff;
+        border: 1px solid rgba(220, 224, 234, .9);
+        border-radius: 24px;
+        box-shadow: 0 24px 70px rgba(33, 42, 72, .12);
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .history-panel {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        background: #fbfbfe;
+        border-right: 1px solid var(--line);
+    }
+
+    .history-panel__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 31px 23px 18px;
+    }
+
+    .history-panel__header h3 { margin: 0; font-size: 19px; }
+    .history-panel__count {
+        display: grid;
+        min-width: 34px;
+        height: 30px;
+        padding: 0 9px;
+        place-items: center;
+        color: var(--primary-dark);
+        background: #e8eaff;
+        border: 1px solid #daddff;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    .history-panel__list {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 7px;
+        max-height: 558px;
+        padding: 0 11px 18px;
+        overflow-y: auto;
+        scrollbar-color: #cbd1dc transparent;
+        scrollbar-width: thin;
+    }
+
+    .conversation {
+        position: relative;
+        display: grid;
+        grid-template-columns: 43px minmax(0, 1fr);
+        gap: 10px;
+        width: 100%;
+        padding: 11px;
+        color: inherit;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 14px;
+        cursor: pointer;
+        font: inherit;
+        text-align: left;
+        transition: .18s;
+    }
+
+    .conversation:hover,
+    .conversation--active {
+        background: #fff;
+        border-color: #e1e5ef;
+        box-shadow: 0 7px 18px rgba(36, 45, 78, .07);
+        transform: translateY(-1px);
+    }
+
+    .conversation--active {
+        border-color: #aaa7f4;
+        box-shadow: 0 8px 22px rgba(79, 70, 229, .12);
+    }
+
+    .conversation__avatar {
+        display: grid;
+        width: 43px;
+        height: 43px;
+        place-items: center;
+        color: #fff;
+        background: linear-gradient(145deg, #818cf8, var(--primary));
+        border: 3px solid rgba(255, 255, 255, .85);
+        border-radius: 13px;
+        box-shadow: 0 4px 10px rgba(79, 70, 229, .17);
+        font-size: 15px;
+        font-weight: 800;
+    }
+
+    .conversation__content { display: flex; min-width: 0; flex-direction: column; gap: 3px; }
+    .conversation__topline { display: flex; min-width: 0; align-items: baseline; gap: 7px; }
+    .conversation__name,
+    .conversation__subject,
+    .conversation__preview {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .conversation__name { flex: 1; color: #283145; font-size: 13px; font-weight: 750; }
+    .conversation__time { flex: 0 0 auto; color: #a0a7b6; font-size: 9.5px; }
+    .conversation__subject { color: #566075; font-size: 11px; font-weight: 700; }
+    .conversation__preview { color: #929aac; font-size: 10.5px; }
+    .conversation__badge {
+        position: absolute;
+        right: 10px;
+        bottom: 9px;
+        display: grid;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        place-items: center;
+        color: #fff;
+        background: var(--primary);
+        border-radius: 999px;
+        font-size: 9px;
+        font-weight: 800;
+    }
+
+    .history-panel__empty {
+        display: flex;
+        flex: 1;
+        min-height: 260px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 35px 20px;
+        color: #8c95a7;
+        text-align: center;
+    }
+
+    .history-panel__empty-icon {
+        display: grid;
+        width: 48px;
+        height: 48px;
+        margin-bottom: 12px;
+        place-items: center;
+        color: var(--primary);
+        background: var(--primary-soft);
+        border-radius: 15px;
+    }
+    .history-panel__empty-icon svg { width: 25px; }
+    .history-panel__empty strong { margin-bottom: 6px; color: #4b5568; font-size: 14px; }
+    .history-panel__empty p { margin: 0; font-size: 11.5px; line-height: 1.5; }
+    .history-panel__hint {
+        margin: auto 16px 20px;
+        padding: 11px 12px;
+        color: #858da0;
+        background: #fff;
+        border: 1px solid #e6e8ef;
+        border-radius: 11px;
+        font-size: 10.5px;
+        text-align: center;
+    }
+
+    .composer {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        background: radial-gradient(circle at 95% 0, rgba(99, 102, 241, .08), transparent 260px), #fff;
+    }
+
+    .composer__header {
+        display: flex;
+        align-items: center;
+        gap: 17px;
+        padding: 30px 34px 25px;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .composer__icon {
+        display: grid;
+        flex: 0 0 54px;
+        width: 54px;
+        height: 54px;
+        place-items: center;
+        color: #fff;
+        background: linear-gradient(145deg, #6366f1, var(--primary-dark));
+        border-radius: 17px;
+        box-shadow: 0 10px 24px rgba(79, 70, 229, .28);
+    }
+
+    .composer__icon svg { width: 27px; height: 27px; }
+    .eyebrow {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--primary);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .09em;
+        text-transform: uppercase;
+    }
+
+    .composer__header h2 { margin: 0 0 5px; font-size: 24px; line-height: 1.15; }
+    .composer__header p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+
+    .composer__body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 23px;
+        padding: 30px 34px 32px;
+    }
+
+    .form-field { display: flex; flex-direction: column; gap: 9px; }
+    .form-field--message { flex: 1; }
+    .form-field__label { color: #384258; font-size: 13px; font-weight: 700; }
+    .input-wrap { position: relative; display: flex; align-items: center; }
+    .input-wrap svg {
+        position: absolute;
+        left: 15px;
+        z-index: 1;
+        width: 20px;
+        color: #9ba3b5;
+        pointer-events: none;
+    }
+
+    .form-field input, .form-field textarea {
+        width: 100%;
+        color: var(--text);
+        background: #fafbfe;
+        border: 1px solid #dfe3ec;
+        border-radius: 13px;
+        outline: none;
+        font: inherit;
+        transition: .2s;
+    }
+
+    .form-field input { height: 50px; padding: 0 16px 0 46px; }
+    .form-field textarea {
+        flex: 1;
+        min-height: 315px;
+        padding: 16px 17px;
+        line-height: 1.65;
+        resize: vertical;
+    }
+
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: #a5adbd; }
+
+    .form-field input:focus, .form-field textarea:focus {
+        background: #fff;
+        border-color: #7772eb;
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, .11);
+    }
+
+    .input-wrap:focus-within svg { color: var(--primary); }
+    .message-form__actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+    }
+
+    .file-button {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        gap: 11px;
+        padding: 8px 12px 8px 8px;
+        color: #4c566c;
+        border: 1px solid transparent;
+        border-radius: 13px;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .file-button:hover { color: var(--primary); background: var(--primary-soft); border-color: #dde2ff; }
+    .file-button input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .file-button__icon {
+        display: grid;
+        flex: 0 0 40px;
+        width: 40px;
+        height: 40px;
+        place-items: center;
+        color: var(--primary);
+        background: var(--primary-soft);
+        border-radius: 11px;
+    }
+
+    .file-button__icon svg { width: 21px; }
+    .file-button__text { display: flex; min-width: 0; flex-direction: column; gap: 2px; font-size: 13px; }
+    .file-button__text small {
+        max-width: 250px;
+        overflow: hidden;
+        color: #929bad;
+        font-size: 11px;
+        font-weight: 500;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .send-button {
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-width: 156px;
+        height: 49px;
+        padding: 0 23px;
+        color: #fff;
+        background: linear-gradient(135deg, #5b5ce2, var(--primary-dark));
+        border: 0;
+        border-radius: 13px;
+        box-shadow: 0 10px 24px rgba(79, 70, 229, .27);
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 800;
+        transition: .2s;
+    }
+
+    .send-button svg { width: 20px; }
+    .send-button:hover { box-shadow: 0 14px 28px rgba(79, 70, 229, .34); transform: translateY(-2px); }
+    .send-button:active { transform: none; }
+    #send-button:disabled { cursor: not-allowed; opacity: .6; transform: none; }
+
+    .recipients {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        background: radial-gradient(circle at 100% 0, rgba(99, 102, 241, .09), transparent 230px), #f8f9fd;
+        border-left: 1px solid var(--line);
+    }
+
+    .recipients__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 31px 25px 18px;
+    }
+
+    .recipients__header h3 { margin: 0; font-size: 19px; }
+    .recipients__count {
+        display: grid;
+        min-width: 34px;
+        height: 30px;
+        padding: 0 9px;
+        place-items: center;
+        color: var(--primary-dark);
+        background: #e8eaff;
+        border: 1px solid #daddff;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    .recipients__list {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 8px;
+        max-height: 535px;
+        padding: 0 13px 18px;
+        overflow-y: auto;
+        scrollbar-color: #cbd1dc transparent;
+        scrollbar-width: thin;
+    }
+
+    .recipient {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 11px;
+        background: rgba(255, 255, 255, .5);
+        border: 1px solid transparent;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: .18s;
+    }
+    .recipient[hidden] {
+        display: none !important;
+    }
+    .recipient:hover {
+        background: #fff;
+        border-color: #e1e5ef;
+        box-shadow: 0 7px 18px rgba(36, 45, 78, .07);
+        transform: translateY(-1px);
+    }
+
+    .recipient:has(.recipient__radio:checked) {
+        background: #fff;
+        border-color: #aaa7f4;
+        box-shadow: 0 8px 22px rgba(79, 70, 229, .12);
+    }
+
+    .recipient__radio { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .recipient__avatar {
+        display: grid;
+        flex: 0 0 42px;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        color: #fff;
+        background: linear-gradient(145deg, #818cf8, var(--primary));
+        border: 3px solid rgba(255, 255, 255, .75);
+        border-radius: 13px;
+        box-shadow: 0 4px 10px rgba(79, 70, 229, .18);
+        font-size: 15px;
+        font-weight: 800;
+    }
+
+    .recipient__info { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 4px; }
+    .recipient__name, .phone { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .recipient__name { color: #283145; font-size: 13.5px; font-weight: 700; }
+    .phone { color: #8a93a6; font-size: 11.5px; }
+    .recipients__empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 45px 18px;
+        color: #8c95a7;
+        text-align: center;
+    }
+
+    .recipients__empty span { margin-bottom: 10px; font-size: 28px; }
+    .recipients__empty strong { margin-bottom: 5px; color: #4b5568; font-size: 14px; }
+    .recipients__empty p { margin: 0; font-size: 12px; }
+    .recipients__hint {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: auto 18px 20px;
+        padding: 11px 12px;
+        color: #747e93;
+        background: rgba(255, 255, 255, .72);
+        border: 1px solid #e5e8ef;
+        border-radius: 11px;
+        font-size: 11.5px;
+    }
+
+    .recipients__hint span {
+        display: grid;
+        width: 19px;
+        height: 19px;
+        place-items: center;
+        color: var(--primary);
+        background: var(--primary-soft);
+        border-radius: 50%;
+        font-weight: 800;
+    }
+
+    .notification-toast {
+        position: fixed;
+        top: 25px;
+        right: 25px;
+        z-index: 9999;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        width: min(390px, calc(100% - 40px));
+        padding: 16px 18px;
+        color: #1f2937;
+        background: rgba(255, 255, 255, .96);
+        border: 1px solid #e5e7eb;
+        border-left: 5px solid #22c55e;
+        border-radius: 14px;
+        box-shadow: 0 18px 45px rgba(28, 35, 58, .16);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(30px);
+        transition: .25s;
+    }
+
+    .notification-toast--visible { opacity: 1; visibility: visible; transform: none; }
+    .notification-toast--success { border-left-color: #22c55e; }
+    .notification-toast--error { border-left-color: #ef4444; }
+    .notification-toast--success .notification-toast__icon::before {
+        content: "✓"; color: #15803d; background: #dcfce7;
+    }
+    .notification-toast--error .notification-toast__icon::before {
+        content: "!"; color: #b91c1c; background: #fee2e2;
+    }
+    .notification-toast__icon::before {
+        display: grid;
+        width: 32px;
+        height: 32px;
+        place-items: center;
+        border-radius: 50%;
+        font-weight: 800;
+    }
+    .notification-toast__content { flex: 1; }
+    .notification-toast__title { margin-bottom: 4px; font-size: 14px; font-weight: 800; }
+    .notification-toast__message { color: #6b7280; font-size: 13px; line-height: 1.45; }
+    .notification-toast__close {
+        padding: 0;
+        color: #9ca3af;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        font-size: 23px;
+        line-height: 1;
+    }
+    .recipients__search {
+        position: relative;
+        margin: 0 13px 15px;
+    }
+
+    .recipients__search svg {
+        position: absolute;
+        top: 50%;
+        left: 14px;
+        width: 19px;
+        height: 19px;
+        color: #9ba3b5;
+        pointer-events: none;
+        transform: translateY(-50%);
+    }
+
+    .recipients__search input {
+        width: 100%;
+        height: 44px;
+        padding: 0 38px 0 43px;
+        color: var(--text);
+        background: rgba(255, 255, 255, .8);
+        border: 1px solid #dfe3ec;
+        border-radius: 12px;
+        outline: none;
+        font: inherit;
+        font-size: 12.5px;
+        transition: .2s;
+    }
+
+    .recipients__search input::placeholder {
+        color: #a5adbd;
+    }
+
+    .recipients__search input:focus {
+        background: #fff;
+        border-color: #7772eb;
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, .11);
+    }
+
+    .recipients__search:focus-within svg {
+        color: var(--primary);
+    }
+
+    .recipient__job {
+        overflow: hidden;
+        color: #a0a7b6;
+        font-size: 10.5px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .recipients__not-found {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding: 35px 18px;
+        color: #8c95a7;
+        text-align: center;
+    }
+
+    .recipients__not-found--visible {
+        display: flex;
+    }
+
+    .recipients__not-found span {
+        margin-bottom: 9px;
+        font-size: 25px;
+    }
+
+    .recipients__not-found strong {
+        margin-bottom: 5px;
+        color: #4b5568;
+        font-size: 13px;
+    }
+
+    .recipients__not-found p {
+        margin: 0;
+        font-size: 11px;
+    }
+
+    .conversation__status {
+        display: block;
+        margin-top: 3px;
+        overflow: hidden;
+        font-size: 10px;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .conversation__status--read {
+        color: #16a34a;
+    }
+
+    .conversation__status--waiting {
+        color: #d97706;
+    }
+
+    .history-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: grid;
+        padding: 30px;
+        place-items: center;
+        background: rgba(15, 23, 42, .62);
+        opacity: 0;
+        visibility: hidden;
+        backdrop-filter: blur(5px);
+        transition: .2s;
+    }
+
+    .history-modal--visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .history-modal__window {
+        display: flex;
+        width: min(760px, 100%);
+        max-height: min(820px, calc(100vh - 60px));
+        flex-direction: column;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid #e4e7ee;
+        border-radius: 22px;
+        box-shadow: 0 30px 90px rgba(0, 0, 0, .3);
+        transform: translateY(18px) scale(.98);
+        transition: .2s;
+    }
+
+    .history-modal--visible .history-modal__window {
+        transform: none;
+    }
+
+    .history-modal__header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 25px 28px 21px;
+        background:
+            radial-gradient(
+                circle at 100% 0,
+                rgba(99, 102, 241, .11),
+                transparent 230px
+            ),
+            #fff;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .history-modal__header h2 {
+        margin: 0 0 5px;
+        color: var(--text);
+        font-size: 21px;
+    }
+
+    .history-modal__header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+    }
+
+    .history-modal__close {
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        color: #7b8498;
+        background: #f3f4f8;
+        border: 0;
+        border-radius: 11px;
+        cursor: pointer;
+        font-size: 25px;
+        line-height: 1;
+    }
+
+    .history-modal__close:hover {
+        color: #fff;
+        background: #ef4444;
+    }
+
+    .history-modal__content {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        padding: 22px 25px 28px;
+        overflow-y: auto;
+        background: #f7f8fc;
+    }
+
+    .history-message {
+        padding: 16px 17px;
+        background: #fff;
+        border: 1px solid #e4e7ee;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(36, 45, 78, .05);
+    }
+
+    .history-message__topline {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 15px;
+        margin-bottom: 8px;
+    }
+
+    .history-message__subject {
+        color: #263047;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .history-message__date {
+        flex: 0 0 auto;
+        color: #98a0b1;
+        font-size: 10.5px;
+    }
+
+    .history-message__text {
+        margin: 0;
+        color: #5d6679;
+        font-size: 12.5px;
+        line-height: 1.55;
+        white-space: pre-wrap;
+    }
+
+    .history-message__bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 13px;
+        padding-top: 11px;
+        border-top: 1px solid #edf0f4;
+    }
+
+    .history-message__attachment {
+        overflow: hidden;
+        color: #667085;
+        font-size: 10.5px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .history-message__status {
+        flex: 0 0 auto;
+        padding: 5px 9px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+    .history-message__status--read {
+        color: #15803d;
+        background: #dcfce7;
+    }
+
+    .history-message__status--waiting {
+        color: #b45309;
+        background: #fef3c7;
+    }
+
+    .history-modal__loading,
+    .history-modal__empty,
+    .history-modal__error {
+        padding: 60px 20px;
+        color: #7b8498;
+        text-align: center;
+    }
+
+    .history-modal__error {
+        color: #b91c1c;
+    }
+
+    body.history-modal-open {
+        overflow: hidden;
+    }
+    .selected-recipients-info {
+        padding: 11px 14px;
+        color: #4f46e5;
+        background: #eef2ff;
+        border: 1px solid #daddff;
+        border-radius: 12px;
+        font-size: 12px;
+    }
+
+    .selected-recipients-info strong {
+        font-weight: 800;
+    }
+
+    @media (max-width: 820px) {
+        .message-form {
+            grid-template-columns: 1fr;
+            width: min(680px, calc(100% - 24px));
+        }
+    }
+    @media (max-width: 600px) {
+        .history-modal {
+            padding: 10px;
+        }
+
+        .history-modal__window {
+            max-height: calc(100vh - 20px);
+            border-radius: 17px;
+        }
+
+        .history-modal__header {
+            padding: 20px;
+        }
+
+        .history-modal__content {
+            padding: 16px;
+        }
+
+        .history-message__topline,
+        .history-message__bottom {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+    }
+    @media (max-width: 1250px) {
+        .message-form {
+            grid-template-columns: 280px minmax(0, 1fr);
+            width: min(1050px, calc(100% - 24px));
+            margin: 18px auto;
+        }
+        .recipients {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            max-height: 390px;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            border-left: 0;
+        }
+        .recipients__list {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            max-height: 235px;
+        }
+        .recipients__hint { display: none; }
+        .form-field textarea { min-height: 240px; }
+    }
+
+    @media (max-width: 820px) {
+        .message-form { grid-template-columns: 1fr; width: min(680px, calc(100% - 24px)); }
+        .history-panel { max-height: 360px; border-right: 0; border-bottom: 1px solid var(--line); }
+        .history-panel__list { max-height: 235px; }
+        .history-panel__hint { display: none; }
+        .recipients { grid-column: auto; grid-row: auto; }
+        .recipients__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 560px) {
+        .message-form { width: calc(100% - 16px); border-radius: 18px; }
+        .composer__header { align-items: flex-start; padding: 22px 19px 19px; }
+        .composer__icon { flex-basis: 45px; width: 45px; height: 45px; border-radius: 14px; }
+        .composer__header p { display: none; }
+        .composer__body { padding: 22px 19px 24px; }
+        .message-form__actions { align-items: stretch; flex-direction: column; }
+        .file-button, .send-button { width: 100%; }
+        .history-panel__header { padding: 23px 19px 16px; }
+        .recipients__header { padding: 23px 19px 16px; }
+        .recipients__list { display: flex; }
+        .notification-toast { top: 12px; right: 12px; width: calc(100% - 24px); }
+    }
+
+    @media (max-width: 820px) {
+        .message-form {
+            grid-template-columns: 1fr;
+            width: min(680px, calc(100% - 24px));
+        }
+    }
+</style>
+<script>
+addEventListener("DOMContentLoaded", () => {
+    const selectedPhonesElement = document.getElementById("selected-phones-data");
+    const selectedPhones = selectedPhonesElement ? JSON.parse(selectedPhonesElement.textContent) : [];
+    const header = document.getElementById("subject");
+    const message = document.getElementById("message");
+    const btn = document.getElementById("send-button");
+    const btnLabel = btn?.querySelector("span");
+    const attachment = document.getElementById("attachment");
+    const attachmentName = document.getElementById("attachment-name");
+    const conversationButtons = Array.from(document.querySelectorAll(".conversation"));
+
+    conversationButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const historyUrl =
+                button.dataset.historyUrl;
+
+            if (!historyUrl) {
+                showNotification(
+                    "error",
+                    "Ошибка",
+                    "Не найден адрес истории сообщений."
+                );
+                return;
+            }
+
+            openConversation(historyUrl);
+        });
+    });
+    // Отображение названия выбранного файла
+    attachment?.addEventListener("change", () => {
+        if (attachment.files.length > 0) {
+            const file = attachment.files[0];
+
+            attachmentName.textContent = file.name;
+
+            // Проверка размера файла — максимум 50 МБ
+            if (file.size > 50 * 1024 * 1024) {
+                showNotification(
+                    "error",
+                    "Файл слишком большой",
+                    "Максимальный размер файла — 50 МБ."
+                );
+
+                attachment.value = "";
+                attachmentName.textContent = "PDF, DOCX, JPG или PNG";
+            }
+        } else {
+            attachmentName.textContent = "PDF, DOCX, JPG или PNG";
+        }
+    });
+
+    async function sendFetch(event) {
+        event.preventDefault();
+
+        const headerValue = header.value.trim();
+        const messageValue = message.value.trim();
+
+        if (!headerValue || !messageValue) {
+            showNotification(
+                "error",
+                "Заполните форму",
+                "Необходимо указать тему и текст сообщения."
+            );
+            return;
+        }
+
+        if (selectedPhones.length === 0) {
+            showNotification(
+                "error",
+                "Нет получателей",
+                "В Django Admin не выбраны сотрудники."
+            );
+
+            return;
+        }
+
+        // Создаём FormData вместо обычного JSON
+        const formData = new FormData();
+
+        formData.append("headerKey", headerValue);
+        formData.append("messageKey", messageValue);
+        formData.append("phones", JSON.stringify(selectedPhones));
+
+        // Добавляем файл, если он выбран
+        if (attachment?.files.length > 0) {
+            formData.append(
+                "attachment",
+                attachment.files[0]
+            );
+        }
+
+        btn.disabled = true;
+        btnLabel.textContent = "Отправка...";
+
+        try {
+            const response = await fetch("/test/", {
+                method: "POST",
+
+                // Content-Type указывать не нужно:
+                // браузер сам создаст multipart/form-data
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken")
+                },
+
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || result.status !== "success") {
+                throw new Error(
+                    result.message ||
+                    "Не удалось отправить сообщение"
+                );
+            }
+
+            const sentMessages =
+                result.sent_messages ?? result.sent ?? 0;
+
+            const sentFiles =
+                result.sent_files ?? 0;
+
+            let notificationText =
+                `Сообщение получили: ${sentMessages} чел.`;
+
+            if (attachment?.files.length > 0) {
+                notificationText +=
+                    ` Файл получили: ${sentFiles} чел.`;
+            }
+
+            showNotification(
+                "success",
+                "Успешно отправлено",
+                notificationText
+            );
+
+            // Очищаем форму после успешной отправки
+            header.value = "";
+            message.value = "";
+
+            if (attachment) {
+                attachment.value = "";
+            }
+
+            if (attachmentName) {
+                attachmentName.textContent =
+                    "PDF, DOCX, JPG или PNG";
+            }
+
+        } catch (error) {
+            showNotification(
+                "error",
+                "Ошибка отправки",
+                error.message
+            );
+
+        } finally {
+            btn.disabled = false;
+            btnLabel.textContent = "Отправить";
+        }
+    }
+
+    btn.addEventListener("click", sendFetch);
+});
+
+
+function getCookie(name) {
+    const cookies = document.cookie.split(";");
+
+    for (const cookie of cookies) {
+        const trimmedCookie = cookie.trim();
+
+        if (trimmedCookie.startsWith(name + "=")) {
+            return decodeURIComponent(
+                trimmedCookie.substring(name.length + 1)
+            );
+        }
+    }
+
+    return null;
+}
+
+const toast = document.getElementById("notification-toast");
+const toastTitle = document.getElementById("notification-title");
+const toastMessage = document.getElementById("notification-message");
+const toastClose = document.getElementById("notification-close");
+
+let toastTimer = null;
+
+function showNotification(type, title, message) {
+    clearTimeout(toastTimer);
+
+    toast.classList.remove(
+        "notification-toast--success",
+        "notification-toast--error",
+        "notification-toast--visible"
+    );
+
+    toast.classList.add(`notification-toast--${type}`);
+
+    toastTitle.textContent = title;
+    toastMessage.textContent = message;
+
+    requestAnimationFrame(() => {
+        toast.classList.add("notification-toast--visible");
+    });
+
+    toastTimer = setTimeout(() => {
+        toast.classList.remove("notification-toast--visible");
+    }, 5000);
+}
+
+toastClose.addEventListener("click", () => {
+    toast.classList.remove("notification-toast--visible");
+});
+
+const recipientSearch =
+    document.getElementById("recipient-search");
+
+const recipientElements = Array.from(
+    document.querySelectorAll(".recipient")
+);
+
+const recipientsNotFound =
+    document.getElementById("recipients-not-found");
+
+recipientSearch?.addEventListener("input", () => {
+    const searchValue = recipientSearch.value
+        .trim()
+        .toLocaleLowerCase("ru");
+
+    let visibleCount = 0;
+
+    recipientElements.forEach(recipient => {
+        const name = recipient
+            .querySelector(".recipient__name")
+            ?.textContent
+            ?.trim()
+            ?.toLocaleLowerCase("ru") || "";
+
+        const phone = recipient
+            .querySelector(".phone")
+            ?.textContent
+            ?.trim()
+            ?.toLocaleLowerCase("ru") || "";
+
+        const job = recipient
+            .querySelector(".recipient__job")
+            ?.textContent
+            ?.trim()
+            ?.toLocaleLowerCase("ru") || "";
+
+        const searchableText = `${name} ${phone} ${job}`;
+
+        const isVisible = searchableText.includes(
+            searchValue
+        );
+
+        recipient.hidden = !isVisible;
+
+        if (isVisible) {
+            visibleCount += 1;
+        }
+    });
+
+    recipientsNotFound?.classList.toggle(
+        "recipients__not-found--visible",
+        visibleCount === 0
+    );
+});
+
+async function updateReadStatuses() {
+    const statusElements = Array.from(
+        document.querySelectorAll(
+            ".conversation__status[data-history-id]"
+        )
+    );
+
+    if (statusElements.length === 0) {
+        return;
+    }
+
+    const historyIds = statusElements.map(
+        element => element.dataset.historyId
+    );
+
+    try {
+        const response = await fetch(
+            `/message-read-statuses/?ids=${
+                encodeURIComponent(historyIds.join(","))
+            }`
+        );
+
+        if (!response.ok) {
+            return;
+        }
+
+        const result = await response.json();
+
+        statusElements.forEach(element => {
+            const historyId =
+                element.dataset.historyId;
+
+            const messageStatus =
+                result.messages?.[historyId];
+
+            if (!messageStatus) {
+                return;
+            }
+
+            element.classList.toggle(
+                "conversation__status--read",
+                messageStatus.is_read
+            );
+
+            element.classList.toggle(
+                "conversation__status--waiting",
+                !messageStatus.is_read
+            );
+
+            element.textContent = messageStatus.is_read
+                ? `✓ Прочитано ${messageStatus.read_at}`
+                : "⏳ Ожидает подтверждения";
+        });
+
+    } catch (error) {
+        console.error(
+            "Ошибка обновления статусов:",
+            error
+        );
+    }
+}
+
+updateReadStatuses();
+
+setInterval(
+    updateReadStatuses,
+    5000
+);
+
+const historyModal =
+    document.getElementById("history-modal");
+
+const historyModalClose =
+    document.getElementById("history-modal-close");
+
+const historyModalTitle =
+    document.getElementById("history-modal-title");
+
+const historyModalPhone =
+    document.getElementById("history-modal-phone");
+
+const historyModalContent =
+    document.getElementById("history-modal-content");
+
+
+function closeHistoryModal() {
+    if (historyRequestController) {
+        historyRequestController.abort();
+        historyRequestController = null;
+    }
+
+    currentHistoryUrl = null;
+    historyNextCursor = null;
+    historyHasMore = false;
+    historyIsLoading = false;
+
+    historyModal.classList.remove(
+        "history-modal--visible"
+    );
+
+    historyModal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    document.body.classList.remove(
+        "history-modal-open"
+    );
+
+    historyModalContent.innerHTML = "";
+}
+
+function createHistoryMessage(item) {
+    const card = document.createElement("article");
+    card.className = "history-message";
+
+    const topline = document.createElement("div");
+    topline.className = "history-message__topline";
+
+    const subject = document.createElement("strong");
+    subject.className = "history-message__subject";
+    subject.textContent = item.subject || "Без темы";
+
+    const date = document.createElement("time");
+    date.className = "history-message__date";
+    date.textContent = item.created_at;
+
+    topline.append(subject, date);
+
+    const text = document.createElement("p");
+    text.className = "history-message__text";
+    text.textContent = item.message || "";
+
+    const bottom = document.createElement("div");
+    bottom.className = "history-message__bottom";
+
+    const attachment = document.createElement("span");
+    attachment.className =
+        "history-message__attachment";
+
+    attachment.textContent = item.attachment_name
+        ? `📎 ${item.attachment_name}`
+        : "Без вложения";
+
+    const status = document.createElement("span");
+
+    status.className = item.is_read
+        ? (
+            "history-message__status " +
+            "history-message__status--read"
+        )
+        : (
+            "history-message__status " +
+            "history-message__status--waiting"
+        );
+
+    status.textContent = item.is_read
+        ? `✓ Прочитано ${item.read_at}`
+        : "⏳ Не подтверждено";
+
+    bottom.append(attachment, status);
+
+    card.append(
+        topline,
+        text,
+        bottom
+    );
+
+    return card;
+}
+
+let currentHistoryUrl = null;
+let historyNextCursor = null;
+let historyHasMore = false;
+let historyIsLoading = false;
+let historyRequestController = null;
+
+
+function buildHistoryUrl(historyUrl, cursor = null) {
+    const url = new URL(
+        historyUrl,
+        window.location.origin
+    );
+
+    if (cursor) {
+        url.searchParams.set(
+            "cursor",
+            cursor
+        );
+    }
+
+    return url.toString();
+}
+
+
+function createHistoryLoader() {
+    const loader = document.createElement("div");
+
+    loader.className = "history-modal__loading";
+    loader.dataset.historyLoader = "true";
+    loader.textContent = "Загрузка сообщений...";
+
+    return loader;
+}
+
+
+async function loadHistoryPage({reset = false} = {}) {
+    if (
+        historyIsLoading ||
+        !currentHistoryUrl ||
+        (!reset && !historyHasMore)
+    ) {
+        return;
+    }
+
+    historyIsLoading = true;
+
+    let shouldLoadNextPage = false;
+
+    const cursor = reset ? null : historyNextCursor;
+    const loader = createHistoryLoader();
+
+    if (reset) {
+        historyModalContent.replaceChildren(loader);
+    } else {
+        historyModalContent.appendChild(loader);
+    }
+
+    try {
+        const response = await fetch(
+            buildHistoryUrl(
+                currentHistoryUrl,
+                cursor
+            ),
+            {
+                signal: historyRequestController.signal,
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+            }
+        );
+
+        const result = await response.json();
+
+        if (
+            !response.ok ||
+            result.status !== "success"
+        ) {
+            throw new Error(
+                result.message ||
+                "Не удалось загрузить историю"
+            );
+        }
+
+        if (reset) {
+            historyModalTitle.textContent =
+                result.recipient.fio;
+
+            historyModalPhone.textContent =
+                result.recipient.phone || "";
+
+            historyModalContent.innerHTML = "";
+        } else {
+            loader.remove();
+        }
+
+        if (
+            reset &&
+            result.messages.length === 0
+        ) {
+            historyModalContent.innerHTML = (
+                '<div class="history-modal__empty">' +
+                "История сообщений пока пуста" +
+                "</div>"
+            );
+        } else {
+            const fragment =
+                document.createDocumentFragment();
+
+            result.messages.forEach(item => {
+                fragment.appendChild(
+                    createHistoryMessage(item)
+                );
+            });
+
+            historyModalContent.appendChild(fragment);
+        }
+
+        historyHasMore =
+            Boolean(result.pagination?.has_more);
+
+        historyNextCursor =
+            result.pagination?.next_cursor || null;
+
+        // Если прокрутка ещё не появилась,
+        // после завершения запроса загрузим следующую страницу.
+        shouldLoadNextPage =
+            historyHasMore &&
+            historyModalContent.scrollHeight <=
+                historyModalContent.clientHeight;
+
+    } catch (error) {
+        loader.remove();
+
+        if (error.name === "AbortError") {
+            return;
+        }
+
+        if (reset) {
+            historyModalTitle.textContent = "Ошибка";
+            historyModalContent.innerHTML = "";
+        }
+
+        const errorElement =
+            document.createElement("div");
+
+        errorElement.className =
+            "history-modal__error";
+
+        errorElement.textContent =
+            error.message;
+
+        historyModalContent.appendChild(errorElement);
+    } finally {
+        historyIsLoading = false;
+    }
+
+    if (shouldLoadNextPage && currentHistoryUrl) {
+        await loadHistoryPage();
+    }
+}
+
+async function openConversation(historyUrl) {
+    if (historyRequestController) {
+        historyRequestController.abort();
+    }
+
+    historyRequestController =
+        new AbortController();
+
+    currentHistoryUrl = historyUrl;
+    historyNextCursor = null;
+    historyHasMore = true;
+    historyIsLoading = false;
+
+    historyModal.classList.add(
+        "history-modal--visible"
+    );
+
+    historyModal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    document.body.classList.add(
+        "history-modal-open"
+    );
+
+    historyModalTitle.textContent =
+        "Загрузка...";
+
+    historyModalPhone.textContent = "";
+
+    await loadHistoryPage({
+        reset: true
+    });
+}
+
+historyModalClose.addEventListener(
+    "click",
+    closeHistoryModal
+);
+
+historyModalContent.addEventListener(
+    "scroll",
+    () => {
+        const remainingDistance =
+            historyModalContent.scrollHeight
+            - historyModalContent.scrollTop
+            - historyModalContent.clientHeight;
+
+        // Начинаем загрузку немного раньше,
+        // чем пользователь достигнет самого низа.
+        if (remainingDistance <= 180) {
+            loadHistoryPage();
+        }
+    }
+);
+
+historyModal.addEventListener(
+    "click",
+    event => {
+        if (event.target === historyModal) {
+            closeHistoryModal();
+        }
+    }
+);
+
+document.addEventListener(
+    "keydown",
+    event => {
+        if (
+            event.key === "Escape"
+            && historyModal.classList.contains(
+                "history-modal--visible"
+            )
+        ) {
+            closeHistoryModal();
+        }
+    }
+);
+</script>
+{% endblock %}
