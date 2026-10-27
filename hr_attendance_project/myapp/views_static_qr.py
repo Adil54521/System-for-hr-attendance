@@ -259,7 +259,7 @@ def webapp_checkin_static(request):
 
 def qr_static(request):
     try:
-        staturl = "http://127.0.0.1:8000/test?start=static_korpus-1"
+        staturl = "https://hrattendance.kuam.kz/Attendance_kuam_bot?start=static_korpus-1"
 
         qrstat = qrcode.make(staturl)
         buffer_stat = BytesIO()
@@ -273,7 +273,7 @@ def qr_static(request):
         return HttpResponse(f"Ошибка: {e}", status=500)
 
 def qr_redirect_static(request):
-    return redirect("http://127.0.0.1:8000/test?start=static_korpus-1")
+    return redirect("https://hrattendance.kuam.kz/Attendance_kuam_bot?start=static_korpus-1")
 
 @csrf_exempt
 def test_page(request):

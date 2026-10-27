@@ -9,6 +9,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# База данных SQLite
+db.sqlite3
+*.sqlite3
+
 # Локальные настройки и IDE
 .idea/
 .vscode/

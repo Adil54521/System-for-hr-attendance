@@ -5,7 +5,7 @@ title Запуск Attendance Bot
 echo Начинаем запуск бота...
 
 :: Переходим в корень проекта
-cd /d "C:\HR\hr_attendance_project"
+cd /d "C:\HR\HR\hr_attendance_project"
 echo Находимся в директории проекта: %CD%
 
 :: Активируем виртуальное окружение
