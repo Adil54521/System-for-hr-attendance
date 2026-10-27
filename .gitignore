@@ -1,9 +1,9 @@
-# Виртуальные окружения
+﻿# Виртуальные окружения
 venv/
 env/
 ENV/
 .venv/
-
+key.env/
 # Кэш Python
 __pycache__/
 *.py[cod]
